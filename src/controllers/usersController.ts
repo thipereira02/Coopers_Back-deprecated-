@@ -8,8 +8,8 @@ export async function signup(req: Request, res: Response) {
         const { username, email, password, confirmPassword } = req.body as SignUpInterface;
 
         const createUser = await usersService.newUser(username, email, password, confirmPassword);
-        if (createUser === false) return res.sendStatus(400);
-        if (createUser === null) return res.sendStatus(409);
+        if (createUser === false) return res.status(400).send("Dados inválidos");
+        if (createUser === null) return res.status(409).send("Usuário ou email já cadastrados");
         
         return res.status(201).send(createUser);
 
@@ -38,9 +38,7 @@ export async function login(req: Request, res: Response) {
 export async function logout(req: Request, res: Response) {
     try{
         const authorization = req.header("Authorization");
-        console.log(authorization);
         const token = authorization?.replace("Bearer ", "");
-        console.log(token);
         if (!token) return res.sendStatus(401);
 
         const logout = await usersService.logout(token);
