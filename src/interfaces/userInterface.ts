@@ -1,8 +1,13 @@
-interface UserInterface {
+interface SignUpInterface {
     username: string;
     email: string;
     password: string;
     confirmPassword: string;
 }
 
-export { UserInterface };
+interface LoginInterface {
+    username: string;
+    password: string;
+}
+
+export { SignUpInterface, LoginInterface };

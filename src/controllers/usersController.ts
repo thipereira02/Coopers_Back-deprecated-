@@ -1,11 +1,11 @@
 import { Response, Request } from "express";
 
-import { UserInterface } from "../interfaces/userInterface";
+import { SignUpInterface, LoginInterface } from "../interfaces/userInterface";
 import * as usersService from "../services/usersService";
 
 export async function newUser(req: Request, res: Response) {
     try{
-        const { username, email, password, confirmPassword } = req.body as UserInterface;
+        const { username, email, password, confirmPassword } = req.body as SignUpInterface;
 
         const createUser = await usersService.newUser(username, email, password, confirmPassword);
         if (createUser === false) return res.sendStatus(400);
@@ -14,7 +14,22 @@ export async function newUser(req: Request, res: Response) {
         return res.status(201).send(createUser);
 
     } catch (err) {
-        console.log('de novo')
+        console.log(err);
+        res.sendStatus(500);
+    }
+}
+
+export async function login(req: Request, res: Response) {
+    try{
+        const { username, password } = req.body as LoginInterface;
+
+        const login = await usersService.login(username, password);
+        if (login === "invalid") return res.sendStatus(400);
+        if (login === false) return res.sendStatus(404);
+
+        return res.status(200).send(login);
+
+    } catch (err) {
         console.log(err);
         res.sendStatus(500);
     }
