@@ -1,11 +1,18 @@
 import express from 'express';
 import cors from 'cors';
 
+import usersRoutes from './routers/usersRoutes';
+
 const app = express();
 app.use(cors());
+app.use(express.json());
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
+app.use(usersRoutes)
+
+//POST SIGNUP
+//POST SIGNIN
+//POST TASKS/:ID
+//GET TASKS/:ID
+//LOGOUT
 
 export default app;
