@@ -10,19 +10,19 @@ export async function newUser(username: string, email: string, password: string,
         let message = "";
         switch (isValid.error.details[0].type) {
             case "string.min":
-                message = "User deve ter pelo menos 3 caracteres";
+                message = "User must be at least 3 characters";
                 break;
             case "string.email":
-                message = "Formato de email inválido";
+                message = "Invalid email format";
                 break;
             case "string.pattern.base":
-                message = "A senha deve ter pelo menos 8 caracteres, sendo uma letra maiúscula, uma letra minúscula, um número e um caractere especial";
+                message = "The password must be at least 8 characters long, consisting of an uppercase letter, a lowercase letter, a number and a special character";
                 break;
             case "any.only":
-                message = "Senhas não coincidem";
+                message = "Passwords do not match";
                 break;
             default:
-                message = "Dados inválidos";
+                message = "Invalid data";
                 break;
         } 
         return {message};
