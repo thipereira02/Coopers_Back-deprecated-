@@ -3,7 +3,7 @@ import { Response, Request } from "express";
 import { SignUpInterface, LoginInterface } from "../interfaces/userInterface";
 import * as usersService from "../services/usersService";
 
-export async function newUser(req: Request, res: Response) {
+export async function signup(req: Request, res: Response) {
     try{
         const { username, email, password, confirmPassword } = req.body as SignUpInterface;
 
