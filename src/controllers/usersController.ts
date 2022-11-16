@@ -8,7 +8,7 @@ export async function signup(req: Request, res: Response) {
         const { username, email, password, confirmPassword } = req.body as SignUpInterface;
 
         const createUser = await usersService.newUser(username, email, password, confirmPassword);
-        if (createUser === false) return res.status(400).send("Dados inválidos");
+        if (typeof createUser === "object") return res.status(400).send(createUser);
         if (createUser === null) return res.status(409).send("Usuário ou email já cadastrados");
         
         return res.status(201).send(createUser);

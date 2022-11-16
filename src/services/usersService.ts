@@ -6,7 +6,27 @@ import { signUpSchema, loginSchema } from "../schemas/UserSchema";
 
 export async function newUser(username: string, email: string, password: string, confirmPassword: string) {
     const isValid = signUpSchema.validate({ username, email, password, confirmPassword });
-    if (isValid.error !== undefined) return false;
+    if (isValid.error !== undefined) {
+        let message = "";
+        switch (isValid.error.details[0].type) {
+            case "string.min":
+                message = "User deve ter pelo menos 3 caracteres";
+                break;
+            case "string.email":
+                message = "Formato de email inválido";
+                break;
+            case "string.pattern.base":
+                message = "A senha deve ter pelo menos 8 caracteres, sendo uma letra maiúscula, uma letra minúscula, um número e um caractere especial";
+                break;
+            case "any.only":
+                message = "Senhas não coincidem";
+                break;
+            default:
+                message = "Dados inválidos";
+                break;
+        } 
+        return {message};
+    }
 
     const userIsAvailable = await usersRepository.userIsAvailable(username);
     if (userIsAvailable === false) return null;
