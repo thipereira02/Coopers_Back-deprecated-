@@ -34,3 +34,22 @@ export async function login(req: Request, res: Response) {
         res.sendStatus(500);
     }
 }
+
+export async function logout(req: Request, res: Response) {
+    try{
+        const authorization = req.header("Authorization");
+        console.log(authorization);
+        const token = authorization?.replace("Bearer ", "");
+        console.log(token);
+        if (!token) return res.sendStatus(401);
+
+        const logout = await usersService.logout(token);
+        if (!logout) return res.sendStatus(503);
+
+        return res.sendStatus(200);
+
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+}

@@ -36,3 +36,8 @@ export async function login(username: string, password: string) {
     const newSession = await usersRepository.newSession(userExists.id, token);
     return newSession;
 }
+
+export async function logout(token: string) {
+    const finishSession = await usersRepository.finishSession(token);
+    return finishSession;
+}

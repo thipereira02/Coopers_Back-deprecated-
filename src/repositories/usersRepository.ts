@@ -63,3 +63,11 @@ export async function newSession(userId: number, token: string){
 
     return session.rows[0];
 }
+
+export async function finishSession(token: string):Promise<boolean> {
+    const result = await connection.query(`
+        DELETE FROM sessions
+        WHERE token = $1
+    `, [token]);
+    return result.rowCount === 1;
+}
