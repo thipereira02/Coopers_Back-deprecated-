@@ -9,7 +9,7 @@ export async function signup(req: Request, res: Response) {
 
         const createUser = await usersService.newUser(username, email, password, confirmPassword);
         if (typeof createUser === "object") return res.status(400).send(createUser);
-        if (createUser === null) return res.status(409).send("Usuário ou email já cadastrados");
+        if (createUser === null) return res.status(409).send("User or email already registered");
         
         return res.status(201).send(createUser);
 
@@ -24,8 +24,8 @@ export async function login(req: Request, res: Response) {
         const { username, password } = req.body as LoginInterface;
 
         const login = await usersService.login(username, password);
-        if (login === "invalid") return res.sendStatus(400);
-        if (login === false) return res.sendStatus(404);
+        if (login === false) return res.status(404).send("User not found");
+        if (login === "invalid") return res.status(400).send("Invalid data");
 
         return res.status(200).send(login);
 
