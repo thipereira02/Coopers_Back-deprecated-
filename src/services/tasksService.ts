@@ -18,3 +18,12 @@ export async function getTasks(token: string) {
     const tasks = await tasksRepository.getTasks(getUserId.userId);
     return tasks;
 }
+
+export async function deleteTask(taskId: number, token: string) {
+    const getUserId = await tasksRepository.getUserId(token);
+
+    const task = await tasksRepository.deleteTask(taskId, getUserId.userId);
+    if (task === false) return false;
+
+    return true;
+}

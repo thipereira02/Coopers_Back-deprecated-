@@ -38,3 +38,22 @@ export async function getTasks(req: Request, res: Response) {
         res.sendStatus(500);
     }
 }
+
+export async function deleteTask(req: Request, res: Response) {
+    try{
+        const authorization = req.header("Authorization");
+        const taskId = Number(req.params.id);
+        const token = authorization?.replace("Bearer ", "");
+
+        if (!token) return res.sendStatus(401);
+
+        const task = await tasksService.deleteTask(taskId, token);
+        if (task === false) return res.sendStatus(404);
+
+        return res.sendStatus(200);
+
+    }catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+}

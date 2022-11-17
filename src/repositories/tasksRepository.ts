@@ -31,3 +31,14 @@ export async function getTasks(userId: number) {
 
     return result.rows;
 }
+
+export async function deleteTask(taskId: number, userId: number) {
+    const result = await connection.query(`
+        DELETE FROM tasks 
+        WHERE id = $1 
+        AND "userId" = $2`,
+        [taskId, userId]
+    );
+
+    return result.rowCount !== 0;
+}
