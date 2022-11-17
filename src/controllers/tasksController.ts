@@ -13,8 +13,25 @@ export async function addTask(req: Request, res: Response) {
 
         const addTask = await tasksService.addTask(description, taskType, token);
         if (addTask === false) return res.sendStatus(400);
-        
+
         return res.status(201).send(addTask);
+
+    }catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+}
+
+export async function getTasks(req: Request, res: Response) {
+    try{
+        const authorization = req.header("Authorization");
+        const token = authorization?.replace("Bearer ", "");
+
+        if (!token) return res.sendStatus(401);
+
+        const tasks = await tasksService.getTasks(token);
+
+        return res.send(tasks);
 
     }catch (err) {
         console.log(err);

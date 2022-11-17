@@ -11,3 +11,10 @@ export async function addTask(description: string, taskType: string, token: stri
     await tasksRepository.addTask(description, taskType, getUserId.userId);
     return "Task added successfully";
 }
+
+export async function getTasks(token: string) {
+    const getUserId = await tasksRepository.getUserId(token);
+
+    const tasks = await tasksRepository.getTasks(getUserId.userId);
+    return tasks;
+}

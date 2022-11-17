@@ -20,3 +20,14 @@ export async function addTask(description: string, taskType: string, userId: num
         [description, taskType, userId]
     );
 }
+
+export async function getTasks(userId: number) {
+    const result = await connection.query(`
+        SELECT * 
+        FROM tasks 
+        WHERE "userId" = $1`,
+        [userId]
+    );
+
+    return result.rows;
+}
