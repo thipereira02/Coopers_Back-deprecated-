@@ -33,3 +33,9 @@ export async function deleteAllTasks(taskType: string, token: string) {
 
     await tasksRepository.deleteAllTasks(getUserId.userId, taskType);
 }
+
+export async function updateTaskType(taskId: number, token: string) {
+    const getUserId = await tasksRepository.getUserId(token);
+
+    await tasksRepository.updateTaskType(getUserId.userId, taskId);
+}

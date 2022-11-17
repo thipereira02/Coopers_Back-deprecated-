@@ -51,3 +51,13 @@ export async function deleteAllTasks(userId: number, taskType: string) {
         [userId, taskType]
     );
 }
+
+export async function updateTaskType(userId: number, taskId: number) {
+    await connection.query(`
+        UPDATE tasks 
+        SET "taskType" = $1 
+        WHERE id = $2 
+        AND "userId" = $3`,
+        ["done", taskId, userId]
+    );
+}
