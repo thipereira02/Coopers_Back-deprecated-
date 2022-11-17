@@ -27,3 +27,9 @@ export async function deleteTask(taskId: number, token: string) {
 
     return true;
 }
+
+export async function deleteAllTasks(taskType: string, token: string) {
+    const getUserId = await tasksRepository.getUserId(token);
+
+    await tasksRepository.deleteAllTasks(getUserId.userId, taskType);
+}

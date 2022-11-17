@@ -1,5 +1,5 @@
 interface TaskInterface {
-    description: string;
+    description?: string;
     taskType: string;
 }
 

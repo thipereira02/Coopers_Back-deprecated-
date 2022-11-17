@@ -42,3 +42,12 @@ export async function deleteTask(taskId: number, userId: number) {
 
     return result.rowCount !== 0;
 }
+
+export async function deleteAllTasks(userId: number, taskType: string) {
+    await connection.query(`
+        DELETE FROM tasks 
+        WHERE "userId" = $1 
+        AND "taskType" = $2`,
+        [userId, taskType]
+    );
+}
