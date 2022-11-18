@@ -61,3 +61,13 @@ export async function updateTaskType(userId: number, taskId: number) {
         ["done", taskId, userId]
     );
 }
+
+export async function updateTaskDescription(userId: number, taskId: number, description: string) {
+    await connection.query(`
+        UPDATE tasks 
+        SET description = $1 
+        WHERE id = $2 
+        AND "userId" = $3`,
+        [description, taskId, userId]
+    );
+}

@@ -84,9 +84,29 @@ export async function updateTaskType(req: Request, res: Response) {
 
         if (!token) return res.sendStatus(401);
 
-        const task = await tasksService.updateTaskType(taskId, token);
+        await tasksService.updateTaskType(taskId, token);
 
         return res.sendStatus(200);
+
+    }catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+}
+
+export async function updateTaskDescription(req: Request, res: Response) {
+    try{
+        const { description } = req.body as TaskInterface;
+        const taskId = Number(req.params.id);
+        const authorization = req.header("Authorization");
+        const token = authorization?.replace("Bearer ", "");
+
+        if (!token) return res.sendStatus(401);
+
+        const updateTask = await tasksService.updateTaskDescription(description, taskId, token);
+        if (updateTask === false) return res.sendStatus(400);
+
+        return res.status(200).send(updateTask);
 
     }catch (err) {
         console.log(err);

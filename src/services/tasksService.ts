@@ -1,4 +1,4 @@
-import { taskSchema } from "../schemas/TaskSchema";
+import { taskSchema, updateTaskSchema } from "../schemas/TaskSchema";
 
 import * as tasksRepository from "../repositories/tasksRepository";
 
@@ -38,4 +38,14 @@ export async function updateTaskType(taskId: number, token: string) {
     const getUserId = await tasksRepository.getUserId(token);
 
     await tasksRepository.updateTaskType(getUserId.userId, taskId);
+}
+
+export async function updateTaskDescription(description: string, taskId: number, token: string) {
+    const isValid = updateTaskSchema.validate({ description });
+    if (isValid.error !== undefined) return false;
+
+    const getUserId = await tasksRepository.getUserId(token);
+
+    await tasksRepository.updateTaskDescription(getUserId.userId, taskId, description);
+    return "Task description updated successfully";
 }

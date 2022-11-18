@@ -5,4 +5,8 @@ const taskSchema = joi.object({
     taskType: joi.string().required(),
 });
 
-export { taskSchema };
+const updateTaskSchema = joi.object({
+    description: joi.string().trim().min(3).required(),
+});
+
+export { taskSchema, updateTaskSchema };
