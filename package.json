@@ -7,7 +7,7 @@
   "scripts": {
     "test": "NODE_ENV=test npx jest -i --watchAll",
     "build": "npx tsc --outDir dist",
-    "start": "node ./src/server.js",
+    "start": "node ./dist/index.js",
     "postinstall": "npm run build",
     "dev": "npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\""
   },
