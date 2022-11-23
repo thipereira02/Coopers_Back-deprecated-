@@ -3,11 +3,12 @@
   "type": "module",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index",
+  "typings": "dist/index",
   "scripts": {
     "test": "NODE_ENV=test npx jest -i --watchAll",
-    "build": "npx tsc --outDir dist",
-    "start": "node ./dist/index.js",
+    "build": "NODE_ENV=production rm -rf ./dist && npx ttsc -P ./tsconfig.json --outDir dist && babel dist -d dist",
+    "start": "NODE_ENV=production NODE_TLS_REJECT_UNAUTHORIZED=0 node dist/server.js",
     "postinstall": "npm run build",
     "dev": "npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\""
   },
