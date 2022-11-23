@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "14.x"
+  },
   "scripts": {
     "test": "NODE_ENV=test npx jest -i --watchAll",
-    "build": "npx tsc --outDir dist",
-    "start": "node ./src/server.js",
+    "build": "rm -rf ./dist && tsc",
+    "start": "node ./dist/server.js",
     "postinstall": "npm run build",
     "dev": "npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\""
   },
