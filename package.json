@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "engines": {
+    "node": "0.18.x"
+  },
   "scripts": {
     "test": "NODE_ENV=test npx jest -i --watchAll",
     "build": "rm -rf ./dist && tsc",
