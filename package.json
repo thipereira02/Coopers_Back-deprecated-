@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "npx jest -i",
-    "build": "npx tsc --outDir dist",
+    "build": "npx typescript --outDir dist",
     "start": "node dist/server.js",
     "postinstall": "npm run build",
     "dev": "npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\""
