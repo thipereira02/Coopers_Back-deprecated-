@@ -6,6 +6,7 @@
   "scripts": {
     "test": "npx jest -i",
     "start": "node dist/server.js",
+    "build": "tsc",
     "dev": "npx nodemon --watch \"src/**\" --ext \"ts,json\" --exec \"ts-node src/server.ts\""
   },
   "keywords": [],
